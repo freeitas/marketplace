@@ -9,6 +9,7 @@
           <p>{{ produto.descricao }}</p>
         </router-link>
       </div>
+      <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina"/>
     </div>
     <div v-else-if="produtos && produtos.length === 0">
       <p class="sem-resultados">Busca sem resultados. Tente outro termo</p>
@@ -17,15 +18,20 @@
 </template>
 
 <script>
+import ProdutosPaginar from "@/components/ProdutosPaginar.vue";
 import { api } from "@/services.js";
 import { serialize } from "@/helpers.js";
 
 export default {
   name: "ProdutosLista",
+  components: {
+    ProdutosPaginar
+  },
   data() {
     return {
       produtos: null,
-      produtosPorPagina: 9
+      produtosPorPagina: 3,
+      produtosTotal: 0,
     };
   },
   computed: {
@@ -37,6 +43,7 @@ export default {
   methods: {
     getProdutos() {
       api.get(this.url).then(r => {
+        this.produtosTotal = r.headers['x-total-count']
         this.produtos = r.data;
       });
     }
