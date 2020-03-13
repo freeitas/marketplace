@@ -2,20 +2,20 @@
   <section class="produtos-container">
     <transition mode="out-in">
       <div v-if="produtos && produtos.length" class="produtos" :key="produtos">
-        <div class="produto" v-for="produto in produtos" :key="produto.id">
-          <router-link to=¨/¨>
+        <div class="produto" v-for="(produto, index) in produtos" :key="index">
+          <router-link :to="{name: 'produto', params: { id: produto.id }}">
             <img v-if="produto.fotos" :src="produto.fotos[0].src" :alt="produto.fotos[0].titulo" />
-            <p class="preco">{{ produto.preco }}</p>
+            <p class="preco">{{ produto.preco | numeroPreco }}</p>
             <h2 class="titulo">{{ produto.nome }}</h2>
             <p>{{ produto.descricao }}</p>
           </router-link>
         </div>
-        <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina"/>
+        <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina" />
       </div>
       <div v-else-if="produtos && produtos.length === 0" :key="sem-resultados">
         <p class="sem-resultados">Busca sem resultados. Tente outro termo</p>
       </div>
-      <PaginaCarregando v-else :key="carregando"/>
+      <PaginaCarregando v-else :key="carregando" />
     </transition>
   </section>
 </template>
@@ -34,7 +34,7 @@ export default {
     return {
       produtos: null,
       produtosPorPagina: 9,
-      produtosTotal: 0,
+      produtosTotal: 0
     };
   },
   computed: {
@@ -48,11 +48,10 @@ export default {
       this.produtos = null;
       window.setTimeout(() => {
         api.get(this.url).then(r => {
-          this.produtosTotal = r.headers['x-total-count']
+          this.produtosTotal = r.headers["x-total-count"];
           this.produtos = r.data;
         });
-      }, 1200)
-
+      }, 1200);
     }
   },
   watch: {
@@ -76,7 +75,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
-  margin: 30px
+  margin: 30px;
 }
 
 .produto {
@@ -87,8 +86,8 @@ export default {
   transition: all 0.2s;
 }
 
-.produto:hover{
-  box-shadow: 0 8px 12px rgba(30, 60, 90, 0.2);  
+.produto:hover {
+  box-shadow: 0 8px 12px rgba(30, 60, 90, 0.2);
 }
 
 .produto img {
@@ -96,7 +95,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.titulo{
+.titulo {
   margin-bottom: 10px;
 }
 
