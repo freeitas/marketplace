@@ -7,6 +7,9 @@ const axiosInstace = axios.create({
 export const api = {
   get(endpoint) {
     return axiosInstace.get(endpoint);
+  },
+  post(endpoint, body) {
+    return axiosInstace.post(endpoint, body);
   }
 };
 
