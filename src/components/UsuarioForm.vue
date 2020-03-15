@@ -6,6 +6,8 @@
     <input id="email" name="email" type="email" v-model="email" />
     <label for="senha">Senha</label>
     <input id="senha" name="senha" type="password" v-model="senha" />
+    <label for="rua">Rua</label>
+    <input id="rua" name="rua" type="text" v-model="rua" />
     <label for="cep">Cep</label>
     <input id="cep" name="cep" type="text" v-model="cep" />
     <label for="numero">Numero</label>
@@ -16,8 +18,7 @@
     <input id="cidade" name="cidade" type="text" v-model="cidade" />
     <label for="estado">Estado</label>
     <input id="estado" name="estado" type="text" v-model="estado" />
-    <label for="rua">Rua</label>
-    <input id="rua" name="rua" type="text" v-model="rua" />
+
     <div class="button">
       <slot></slot>
     </div>
@@ -25,7 +26,27 @@
 </template>
 
 <script>
-export default {};
+import { mapFields } from "@/helpers.js";
+
+export default {
+  computed: {
+    ...mapFields({
+      fields: [
+        "nome",
+        "email",
+        "senha",
+        "rua",
+        "cep",
+        "numero",
+        "bairro",
+        "cidade",
+        "estado"
+      ],
+      base: "usuario",
+      mutation: "UPDATE_USUARIO"
+    })
+  }
+};
 </script>
 
 <style scoped>
