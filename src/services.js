@@ -11,6 +11,9 @@ export const api = {
   post(endpoint, body) {
     return axiosInstace.post(endpoint, body);
   },
+  put(endpoint, body) {
+    return axiosInstace.put(endpoint, body);
+  },
   delete(endpoint) {
     return axiosInstace.delete(endpoint);
   }
