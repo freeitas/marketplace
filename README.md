@@ -1,4 +1,4 @@
-# Projeto de marketplace - Renek
+# Projeto de marketplace
 
 ## Project setup
 ```
