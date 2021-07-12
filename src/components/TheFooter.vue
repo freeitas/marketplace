@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>eu vou me matar kk</p>
+    <p>Marketplace</p>
   </footer>
 </template>
 <script>
